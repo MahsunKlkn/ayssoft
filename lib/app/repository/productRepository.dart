@@ -10,12 +10,15 @@ class ProductRepository implements ProductBaseRepository {
   @override
   Future<ProductListResponse?> fetchProducts() async {
     try {
-      final response = await _productService.getProducts();
+      final rawData = await _productService.getProducts();
       
-      if (response == null) {
+      if (rawData == null) {
         print('⚠️ UYARI [Repository]: ProductService null döndü.');
         return null;
       }
+
+      // Ham veriyi modele dönüştür
+      final response = ProductListResponse.fromJson(rawData);
 
       if (response.products != null && response.products!.isNotEmpty) {
         print(

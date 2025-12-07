@@ -2,18 +2,17 @@ import 'package:ayssoft/app/data/service/Base/productBase.dart';
 import 'package:dio/dio.dart';
 import '../../core/config/dio.dart';
 import '../../core/config/endpoint.dart';
-import '../model/productList.dart';
 
 class ProductService implements ProductBase {
   final Dio _dio = DioClient.instance;
 
   @override
-  Future<ProductListResponse?> getProducts() async {
+  Future<Map<String, dynamic>?> getProducts() async {
     try {
       final response = await _dio.get(ApiPaths.products);
       
       if (response.data != null) {
-        return ProductListResponse.fromJson(response.data as Map<String, dynamic>);
+        return response.data as Map<String, dynamic>?;
       }
       return null;
     } on DioException {

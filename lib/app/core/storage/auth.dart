@@ -61,7 +61,6 @@ final class AuthCacheManager {
     return _box.get(_userIdKey);
   }
 
-  @override
   Future<void> signOut() async {
     await _box.delete(_tokenKey);
     await _box.delete(_refreshTokenKey);

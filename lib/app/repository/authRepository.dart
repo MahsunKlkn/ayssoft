@@ -10,8 +10,7 @@ class AuthRepository implements IAuthRepository {
   final AuthCacheManager _cacheManager = AuthCacheManager.instance;
   AuthRepository({required AuthService service}) : _service = service;
   
- @override
- bool get isUserLoggedIn => _cacheManager.isUserLoggedIn();
+  bool get isUserLoggedIn => _cacheManager.isUserLoggedIn();
   
   @override
   // 🚀 Yeni Parametre Eklendi: rememberMe
