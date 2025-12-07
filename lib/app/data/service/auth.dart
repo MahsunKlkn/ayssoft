@@ -4,9 +4,10 @@ import '../../core/config/endpoint.dart';
 
 class AuthService {
   final Dio _dio = DioClient.instance;
+
   Future<Response> login(String username, String password) async {
     return await _dio.post(
-      ApiPaths.auth, 
+      ApiPaths.auth,
       data: {
         'username': username,
         'password': password,

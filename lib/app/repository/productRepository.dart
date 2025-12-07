@@ -10,36 +10,29 @@ class ProductRepository implements ProductBaseRepository {
   @override
   Future<ProductListResponse?> fetchProducts() async {
     try {
-      final rawData = await _productService.getProducts();
-      if (rawData == null) {
-        print(
-          'HATA [Repository]: ProductService.getProducts() null (boş) JSON döndü.',
-        );
+      final response = await _productService.getProducts();
+      
+      if (response == null) {
+        print('⚠️ UYARI [Repository]: ProductService null döndü.');
         return null;
       }
 
-      final response = ProductListResponse.fromJson(rawData);
       if (response.products != null && response.products!.isNotEmpty) {
         print(
-          '✅ BAŞARILI [Repository]: Ürünler başarıyla maplendi. Toplam ürün sayısı: ${response.products!.length}',
+          '✅ BAŞARILI [Repository]: Ürünler başarıyla getirildi. Toplam: ${response.products!.length}',
         );
-        print('İlk Ürün Başlığı: ${response.products!.first.title}');
+        print('İlk Ürün: ${response.products!.first.title}');
       } else {
-        print(
-          '⚠️ UYARI [Repository]: Mapping başarılı, ancak products listesi null veya boş.',
-        );
+        print('⚠️ UYARI [Repository]: Ürün listesi boş.');
       }
 
       return response;
     } catch (e) {
-      print(
-        '❌ KRİTİK HATA [Repository]: Veri modeline dönüştürürken hata oluştu: $e',
-      );
+      print('❌ HATA [Repository]: Ürünler getirilirken hata: $e');
       return null;
     }
   }
 
-  // Yeni eklenen kategori çekme metodu
   @override
   Future<List<String>?> fetchCategories() async {
     try {

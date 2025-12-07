@@ -1,4 +1,6 @@
+import '../../model/productList.dart';
+
 abstract class ProductBase {
-  Future<Map<String, dynamic>?> getProducts( );
+  Future<ProductListResponse?> getProducts();
   Future<List<String>?> getCategories();
 }
